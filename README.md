@@ -4,13 +4,15 @@ This project scrapes data from Wikipedia about Brazil's most watched show, Big B
 
 # Problem Description
 
+![Contestants from Big Brother Brasil 21](https://variety.com/wp-content/uploads/2021/03/big-brother-brasil.jpg?w=1000&h=563&crop=1)
+
 In its 25 years of existence, the Big Brother franchise has become a cultural phenomenon in Brazil. With a bespoke format to appeal to the Brazilian audience, the show sparks debates on topics like diversity, ethics, and relationships on social platforms. This engagement isn't just limited to fans; brands also leverage the buzz to connect with audiences, with its 2024 edition raising around 175 million dollars (1 billion Brazilian reais) in advertising revenue. Its contestants go on to become celebrities in the country with many going on to build a solid television career.
 
 Each year, the show generates a large volume of information on contestants, nominations, ratings, evictions and more. Currently, there is no centralised database with all this information properly stored and normalised for analysis. Therefore, the scope of this project is to fill that gap and create a structure for the collection of data for future editions in order to allow for fans and journalists to gather key insights on the show and its history.
 
 # Workflow & Technologies
 
-![Workflow of the project](https://i.ibb.co/99PKpXcK/WORKFLOW.png)
+![Workflow of the project](https://i.ibb.co/C3DCZfJx/Workflow.png)
 
 1) Webscraping using Python: raw data is collected from Wikipedia pages and turned into csv tables.
 2) Ingestion & Storage using Kestra, GCP, BigQuery: these csv tables are stored into BigQuery datasets on GCP using dynamic Kestra flows.
