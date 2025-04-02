@@ -35,10 +35,10 @@ Besides, information on the challenges could be added, something that [BBBStats]
 
 # Reproducibility
 
-## 1) Download WSL:
+### 1) Download WSL:
 Kestra runs on a Docker image and Docker runs more smoothly on Linux. So, if you're using Windows, [download WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to create a virtual Linux machine.
 
-## 2) Setting up GCP: creating a new project and setting up service accounts
+### 2) Setting up GCP: creating a new project and setting up service accounts
 - Create a new project on Google Cloud Console
 - These are the service accounts necessary under IAM for this project to work:
   - For Terraform: BigQuery Admin, Compute Admin, Storage Admin
