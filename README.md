@@ -45,7 +45,7 @@ Kestra runs on a Docker image and Docker runs more smoothly on Linux. So, if you
   - For Kestra: BigQuery Admin and Storage Admin
   - For dbt: BigQuery Admin, BigQuery Data Editor, BigQuery Job User, BigQuery User
  
-### [3) Create a GCP bucket using Terraform].(1_terraform/)
+### [3) Create a GCP bucket using Terraform].(1_terraform)
 
 
 
