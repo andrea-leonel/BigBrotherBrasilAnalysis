@@ -8,7 +8,7 @@ This project scrapes data from Wikipedia about Brazil's most watched show, Big B
 
 In its 25 years of existence, the Big Brother franchise has become a cultural phenomenon in Brazil. With a bespoke format to appeal to the Brazilian audience, the show sparks debates on topics like diversity, ethics, and relationships on social platforms. This engagement isn't just limited to fans; brands also leverage the buzz to connect with audiences, with its 2024 edition raising around 175 million dollars (1 billion Brazilian reais) in advertising revenue. Its contestants go on to become celebrities in the country with many going on to build a solid television career.
 
-Each year, the show generates a large volume of information on contestants, nominations, ratings, evictions and more. Currently, there is no centralised database with all this information properly stored and normalised for analysis. Therefore, the scope of this project is to fill that gap and create a structure for the collection of data for future editions in order to allow for fans and journalists to gather key insights on the show and its history.
+Each year, the show generates a large volume of information on contestants, nominations, ratings, evictions and more. Currently, there is no centralised database with all this information properly stored and normalised for analysis. Therefore, the scope of this project is to fill that gap and create a structure for the collection of data for future seasons to allow for fans and journalists to gather key insights on the show and its history.
 
 # Workflow & Technologies
 
@@ -34,4 +34,20 @@ This dataset lacks information on a very important dimension of this show's popu
 Besides, information on the challenges could be added, something that [BBBStats](https://drive.google.com/drive/u/0/folders/1O9LwFF4oR-n3SNd1vY_v-7n8QhDeprRv) started doing and that could be put in table form and joined with the rest of this database.
 
 # Reproducibility
-TBD
+
+## 1) Download WSL:
+Kestra runs on a Docker image and Docker runs more smoothly on Linux. So, if you're using Windows, [download WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to create a virtual Linux machine.
+
+## 2) Setting up GCP: creating a new project and setting up service accounts
+- Create a new project on Google Cloud Console
+- These are the service accounts necessary under IAM for this project to work:
+  - For Terraform: BigQuery Admin, Compute Admin, Storage Admin
+  - For Kestra: BigQuery Admin and Storage Admin
+  - For dbt: BigQuery Admin, BigQuery Data Editor, BigQuery Job User, BigQuery User
+ 
+## 3) Create a GCP bucket using Terraform
+Recommended to install VS Code for Linux or another code writer.
+
+
+
+
