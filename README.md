@@ -12,7 +12,7 @@ Each year, the show generates a large volume of information on contestants, nomi
 
 # Workflow & Technologies
 
-![Workflow of the project](https://i.ibb.co/C3DCZfJx/Workflow.png)
+<img src="https://i.ibb.co/RpvGFTdT/Workflow.png" width="500" height="300"/>
 
 1) Webscraping using Python: raw data is collected from Wikipedia pages and turned into csv tables.
 2) Ingestion & Storage using Kestra, GCP, BigQuery: these csv tables are stored into BigQuery datasets on GCP using dynamic Kestra flows.
