@@ -4,7 +4,7 @@ This project scrapes data from Wikipedia about Brazil's most watched show, Big B
 
 # Problem Description
 
-![Contestants from Big Brother Brasil 21](https://variety.com/wp-content/uploads/2021/03/big-brother-brasil.jpg?w=1000&h=563&crop=1)
+<img src="https://variety.com/wp-content/uploads/2021/03/big-brother-brasil.jpg?w=1000&h=563&crop=1" width="100" height="100"/>
 
 In its 25 years of existence, the Big Brother franchise has become a cultural phenomenon in Brazil. With a bespoke format to appeal to the Brazilian audience, the show sparks debates on topics like diversity, ethics, and relationships on social platforms. This engagement isn't just limited to fans; brands also leverage the buzz to connect with audiences, with its 2024 edition raising around 175 million dollars (1 billion Brazilian reais) in advertising revenue. Its contestants go on to become celebrities in the country with many going on to build a solid television career.
 
