@@ -45,8 +45,7 @@ Kestra runs on a Docker image and Docker runs more smoothly on Linux. So, if you
   - For Kestra: BigQuery Admin and Storage Admin
   - For dbt: BigQuery Admin, BigQuery Data Editor, BigQuery Job User, BigQuery User
  
-### 3) Create a GCP bucket using Terraform
-Recommended to install VS Code for Linux or another code writer.
+### [3) Create a GCP bucket using Terraform].(1_terraform/)
 
 
 
