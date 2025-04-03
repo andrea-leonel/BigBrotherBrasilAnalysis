@@ -30,7 +30,7 @@ def ranking_scrape(url):
     for element in soup.find_all(string=True):
         element.replace_with(remove_accents(element))
 
-    # Find the h2 with id="Histórico"
+    # Find the h2
     h2_header = soup.find('h2', {'id': 'Classificação_geral'})
     desired_table = None
     next_div = None
