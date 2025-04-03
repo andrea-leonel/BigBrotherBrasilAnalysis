@@ -33,6 +33,8 @@ This dataset lacks information on a very important dimension of this show's popu
 
 Besides, information on the challenges could be added, something that [BBBStats](https://drive.google.com/drive/u/0/folders/1O9LwFF4oR-n3SNd1vY_v-7n8QhDeprRv) started doing and that could be put in table form and joined with the rest of this database.
 
+There are other tables with consistent information across the seasons on their Wikipedia pages that could be further explored too.
+
 # Reproducibility
 
 ### 1) Download WSL:
