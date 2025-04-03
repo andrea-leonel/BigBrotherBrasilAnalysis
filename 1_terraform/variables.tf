@@ -1,6 +1,6 @@
 variable "project" {
     description = "Project"
-    default = "Big-Brother-Brasil"
+    default = "big-brother-brasil-454420"
 }
 
 variable "region" {
@@ -21,10 +21,10 @@ variable "gcs_storage_class" {
 
 variable "gcs_bucket_name" {
     description = "My Storage Bucket Name"
-    default = "bbb-bucket"
+    default = "big-brother-brasil-bucket"
 }
 
 variable "credentials" {
     description = "My credentials"
-    default = "./keys/my-creds.json" # This needs to be updated to the file location of you credentials json file.
+    default = "./keys/my-creds.json"
 }
