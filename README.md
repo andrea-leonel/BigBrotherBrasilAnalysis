@@ -35,6 +35,8 @@ Besides, information on the challenges could be added, something that [BBBStats]
 
 There are other tables with consistent information across the seasons on their Wikipedia pages that could be further explored too.
 
+The ratings methodology may have changed throughout the years so it would be interesting to reflect that in the Ratings tables.
+
 # Reproducibility
 
 ### 1) Download WSL:
