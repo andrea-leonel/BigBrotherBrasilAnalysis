@@ -172,7 +172,7 @@ def nominations_scrape(url):
 base_url = "https://pt.wikipedia.org/wiki/Big_Brother_Brasil_"
 number_of_shows = 2
 
-urls = [f"{base_url}{i}" for i in range(16, number_of_shows + 1)]
+urls = [f"{base_url}{i}" for i in range(1, number_of_shows + 1)]
 
 for url in urls:
     try:
