@@ -51,6 +51,8 @@ Kestra runs on a Docker image and Docker runs more smoothly on Linux. So, if you
  
 ### [3) Create a GCP bucket using Terraform](1_terraform/)
 
+### [4) Create the flows on Kestra](3_kestra/)
+
 
 
 
