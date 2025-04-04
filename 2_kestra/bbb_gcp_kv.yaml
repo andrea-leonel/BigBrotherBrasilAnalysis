@@ -1,0 +1,27 @@
+id: bbb_gcp_kv
+namespace: bigbrotherbrasil
+
+tasks:
+  - id: bbb_gcp_project_id
+    type: io.kestra.plugin.core.kv.Set
+    key: BBB_GCP_PROJECT_ID
+    kvType: STRING
+    value: big-brother-brasil-454420
+
+  - id: bbb_gcp_location
+    type: io.kestra.plugin.core.kv.Set
+    key: BBB_GCP_LOCATION
+    kvType: STRING
+    value: europe-west2
+
+  - id: bbb_gcp_bucket_name
+    type: io.kestra.plugin.core.kv.Set
+    key: BBB_GCP_BUCKET_NAME
+    kvType: STRING
+    value:  big-brother-brasil-bucket
+
+  - id: bbb_gcp_dataset
+    type: io.kestra.plugin.core.kv.Set
+    key: BBB_GCP_DATASET
+    kvType: STRING
+    value: bigbrotherbrasil
