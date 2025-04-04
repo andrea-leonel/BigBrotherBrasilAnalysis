@@ -99,7 +99,7 @@ for url in urls:
     
 # Save to csv
 Ratings_average = pd.concat(Combined_ratings, ignore_index=True)
-Ratings_average.to_csv(f'ratingaverage.csv', drop_index=True)
+Ratings_average.to_csv(f'ratingaverage', drop_index=True)
     
 
 
