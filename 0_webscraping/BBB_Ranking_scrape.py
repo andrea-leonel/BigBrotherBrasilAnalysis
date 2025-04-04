@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[79]:
-
-
 # Libraries
 
 import pandas as pd
@@ -30,7 +24,7 @@ def ranking_scrape(url):
     for element in soup.find_all(string=True):
         element.replace_with(remove_accents(element))
 
-    # Find the h2
+    # Find the h2 with id="Histórico"
     h2_header = soup.find('h2', {'id': 'Classificação_geral'})
     desired_table = None
     next_div = None
@@ -51,6 +45,12 @@ def ranking_scrape(url):
         html_to_table = pd.read_html(StringIO(str(desired_table)))
         Ranking = html_to_table[0]
 
+        # Normalising column name
+        if 'Porcentagem/ Pontos' in Ranking.columns: 
+            Ranking = Ranking.rename(columns={'Porcentagem/ Pontos':'% dos votos'})
+        if 'Porcentagem/ Votos' in Ranking.columns: 
+            Ranking = Ranking.rename(columns={'Porcentagem/ Votos':'% dos votos'})
+
         # Adding the year of the current file
         Ranking['Edicao'] = url.rsplit('_', 1)[-1]
 
@@ -60,40 +60,40 @@ def ranking_scrape(url):
         # Remove double ranking - take only first number
         Ranking['Pos.'] = Ranking['Pos.'].apply(lambda x: x.split('-')[0] if '-' in x else x)
 
+        # Remove Notes number from % Votes and Meio de indicacao
+        Ranking['% dos votos'] = Ranking['% dos votos'].str.replace(r'\[.*', '', regex=True)
+        Ranking['Meio de indicacao'] = Ranking['Meio de indicacao'].str.replace(r'\[.*', '', regex=True)
+
         # Breakdown Meio de Indicacao into two columns: Meio and Nominated by
         Ranking['Indicado por'] = Ranking['Meio de indicacao'].str.extract(r'\((.*?)\)')
         Ranking['Indicado por'] = Ranking['Indicado por'].fillna(Ranking['Meio de indicacao'])
         Ranking['Meio de indicacao'] = Ranking['Meio de indicacao'].str.replace(r'\((.*?)\)', '', regex=True)
 
-        # Remove Notes number from % Votes
-        Ranking['% dos votos'] = Ranking['% dos votos'].str.replace(r'\[.*', '', regex=True)
-
+        # Some % Votes isn't %, it says "disqualified" or "withdrawn" in a merged cell.
+        Ranking['% dos votos'] = Ranking.apply(lambda row: row['% dos votos'].replace(row['% dos votos'], row['Meio de indicacao']) if '%' not in row['% dos votos'] else row['% dos votos'], axis=1)
+        
         # Replace -- in Eliminado em by Finalista
         Ranking['Eliminado em'] = Ranking.apply(lambda row: row['Eliminado em'].replace('--', row['Meio de indicacao']) if '--' in row['Eliminado em'] else row['Eliminado em'], axis=1)
 
-        # Save to csv
-        year = url.rsplit('_', 1)[-1]
+    return Ranking
 
-        Ranking.to_csv(f'ranking{year}')
+# Appending the Rankings to one single dataframe
 
-        return print("CSV file successfully saved")
-    
-# List of URLs to process
 base_url = "https://pt.wikipedia.org/wiki/Big_Brother_Brasil_"
-number_of_shows = 2
+number_of_shows = 25
 
 urls = [f"{base_url}{i}" for i in range(1, number_of_shows + 1)]
 
+Combined_ranking = []
+
 for url in urls:
     try:
-        ranking_scrape(url)
-        print(f"Processed and saved CSV files for: {url}")
+        ranking_new = ranking_scrape(url)
+        Combined_ranking.append(ranking_new)
+        print(f"Ranking information for {url} appended")
     except Exception as e:
         print(f"Error processing {url}: {e}")
 
-
-# In[ ]:
-
-
-
-
+# Save to csv
+Ranking = pd.concat(Combined_ranking, ignore_index=True)
+Ranking.to_csv(f'ranking')
