@@ -11,7 +11,7 @@ tasks:
     tasks:
       - id: clone
         type: io.kestra.plugin.git.Clone
-        url: https://github.com/andrea-leonel/BigBrotherBrasil_Kestra
+        url: https://github.com/andrea-leonel/BigBrotherBrasilAnalysis
 
       - id: python
         type: io.kestra.plugin.scripts.python.Commands
@@ -20,7 +20,7 @@ tasks:
         beforeCommands:
           - pip install pandas requests beautifulsoup4 ipython Unidecode lxml html5lib
         commands:
-          - python BBB_Nominations_scrape.py
+          - python 0_webscraping/BBB_Nominations_scrape.py
         outputFiles:
           - "nominations*"
           - "individualnominations*"
