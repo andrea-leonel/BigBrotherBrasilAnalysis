@@ -1,0 +1,65 @@
+id: bbb_gcp_setup_nominations
+namespace: bigbrotherbrasil
+
+variables:
+  gcs_file: "gs://{{kv('BBB_GCP_BUCKET_NAME')}}"
+
+tasks:
+
+  - id: wdir
+    type: io.kestra.plugin.core.flow.WorkingDirectory
+    tasks:
+      - id: clone
+        type: io.kestra.plugin.git.Clone
+        url: https://github.com/andrea-leonel/BigBrotherBrasil_Kestra
+
+      - id: python
+        type: io.kestra.plugin.scripts.python.Commands
+        namespaceFiles:
+          enabled: true
+        beforeCommands:
+          - pip install pandas requests beautifulsoup4 ipython Unidecode lxml html5lib
+        commands:
+          - python BBB_Nominations_scrape.py
+        outputFiles:
+          - "nominations*"
+          - "individualnominations*"
+          - "evictionresults*"
+  
+  - id: each
+    type: io.kestra.plugin.core.flow.ForEach
+    concurrencyLimit: 1
+    values: "{{ outputs.python.outputFiles | jq('keys[]') }}"
+    
+    tasks:
+      - id: log
+        type: io.kestra.plugin.core.log.Log
+        message: "{{ [taskrun.value] }}"
+
+      - id: upload_to_gcs
+        type: io.kestra.plugin.gcp.gcs.Upload
+        from: "{{ outputs.python.outputFiles[taskrun.value] }}"
+        to: "{{ render(vars.gcs_file) }}/{{ taskrun.value }}"
+
+      - id: upload_to_bq
+        type: io.kestra.plugin.gcp.bigquery.Query
+        sql: |
+          CREATE OR REPLACE EXTERNAL TABLE {{kv('BBB_GCP_PROJECT_ID')}}.{{kv('BBB_GCP_DATASET')}}.{{taskrun.value}} 
+          OPTIONS 
+          (
+            format = 'CSV',
+            uris = ['{{render(vars.gcs_file)}}/{{taskrun.value}}'],
+            ignore_unknown_values = TRUE
+          );
+
+  - id: purge_files
+    type: io.kestra.plugin.core.storage.PurgeCurrentExecutionFiles
+    description: To avoid cluttering your storage, we will remove the downloaded files
+
+pluginDefaults:
+  - type: io.kestra.plugin.gcp
+    values:
+      serviceAccount: "{{kv('BBB_GCP_CREDS')}}"
+      projectId: "{{kv('BBB_GCP_PROJECT_ID')}}"
+      location: "{{kv('BBB_GCP_LOCATION')}}"
+      bucket: "{{kv('BBB_GCP_BUCKET_NAME')}}"
