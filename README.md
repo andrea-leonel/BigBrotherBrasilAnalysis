@@ -53,6 +53,8 @@ Kestra runs on a Docker image and Docker runs more smoothly on Linux. So, if you
 
 ### [4) Create the flows on Kestra](2_kestra/)
 
+### [5) Running the models on dbt](4_dbt/)
+
 
 
 
