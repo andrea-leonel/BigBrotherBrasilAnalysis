@@ -120,6 +120,8 @@ def nominations_scrape(url):
 
     # Removing spaces from column names
     Nominations.columns = [col.replace(' ', '_') for col in Nominations.columns]
+    Nominations.columns = [col.replace('(', '') for col in Nominations.columns]
+    Nominations.columns = [col.replace(')', '') for col in Nominations.columns]
 
     # Manipulating the Individual_nominations table
 
@@ -146,6 +148,8 @@ def nominations_scrape(url):
 
     # Removing spaces from column names
     Individual_nominations.columns = [col.replace(' ', '_') for col in Individual_nominations.columns]
+    Individual_nominations.columns = [col.replace('(', '') for col in Individual_nominations.columns]
+    Individual_nominations.columns = [col.replace(')', '') for col in Individual_nominations.columns]
 
     # Manipulating the Eviction_results table
 
@@ -177,7 +181,10 @@ def nominations_scrape(url):
     Eviction_results.rename(columns={'index': 'Semana'}, inplace=True)
 
     # Removing spaces from column names
-    Eviction_results.columns = [col.replace(' ', '_') for col in Eviction_results.columns]        
+    Eviction_results.columns = [col.replace(' ', '_') for col in Eviction_results.columns]
+    Eviction_results.columns = [col.replace('(', '') for col in Eviction_results.columns]
+    Eviction_results.columns = [col.replace(')', '') for col in Eviction_results.columns]
+    Eviction_results.columns = [col.replace('%', 'Porcent') for col in Eviction_results.columns]    
 
      # Save to csv
     year = url.rsplit('_', 1)[-1]
