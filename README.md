@@ -29,13 +29,11 @@ The data is comprised of 3 tables:
 
 # Future Improvements
 
-This dataset lacks information on a very important dimension of this show's popularity: social media. It would be interesting to see follower growth of the contestants throughout the show and how they maintained that growth post-show. It would also be interesting to gather mention information, particularly on X where the show is heavily commented by its fans.
-
-Besides, information on the challenges could be added, something that [BBBStats](https://drive.google.com/drive/u/0/folders/1O9LwFF4oR-n3SNd1vY_v-7n8QhDeprRv) started doing and that could be put in table form and joined with the rest of this database.
-
-There are other tables with consistent information across the seasons on their Wikipedia pages that could be further explored too.
-
-The ratings methodology may have changed throughout the years so it would be interesting to reflect that in the Ratings tables.
+1) This dataset lacks information on a very important dimension of this show's popularity: social media. It would be interesting to see follower growth of the contestants throughout the show and how they maintained that growth post-show. It would also be interesting to gather mention information, particularly on X where the show is heavily commented by its fans.
+2) Besides, information on the challenges could be added, something that [BBBStats](https://drive.google.com/drive/u/0/folders/1O9LwFF4oR-n3SNd1vY_v-7n8QhDeprRv) started doing and that could be put in table form and joined with the rest of this database.
+3) There are other tables with consistent information across the seasons on their Wikipedia pages that could be further explored too.
+4) The ratings methodology may have changed throughout the years so it would be interesting to reflect that in the Ratings tables.
+5) The nominations table can be improved in accuracy. Immunities given outside the Power of Immunity is not reflected in the dataset. This information would need to be gathered from the notes on Wikipedia.
 
 # Reproducibility
 
