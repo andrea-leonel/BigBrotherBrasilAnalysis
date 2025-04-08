@@ -1,29 +1,58 @@
-with 
+with
 
-source as (
+    source as (select * from {{ source("big-brother-brasil-454420", "ranking") }}),
+    
+    ranking as (
 
-    select * from {{ source('big-brother-brasil-454420', 'ranking') }}
+        select
+            pos_ as posicao,
+            participante as participante_ou_dupla,
+            case
+                when strpos(participante, '&') > 0
+                then regexp_extract(participante, r'^(.*?) &')
+                else participante
+            end as participante_1,
+            case
+                when strpos(participante, '&') > 0
+                then regexp_extract(participante, '& (.*)')
+                else null
+            end as participante_2,
+            meio_de_indicacao,
+            __dos_votos,
+            eliminado_em,
+            edicao,
+            indicado_por
 
-),
+        from source
 
-ranking as (
+    ),
 
-    select
-        pos_ AS posicao,
-        regexp_extract(participante, r'^(.*?) ') AS primeiro_nome,
-        meio_de_indicacao,
-        __dos_votos,
-        eliminado_em,
-        edicao,
-        indicado_por
+    ranking_pivot as (
 
-    from source
+        select participante_ou_dupla, participante_1 as participante, posicao, edicao
+        from ranking
 
-)
+    union all
 
-select 
-{{ dbt_utils.generate_surrogate_key(['edicao','primeiro_nome']) }} AS id_participante,
-posicao,
-primeiro_nome,
-edicao
-from ranking
+    select participante_ou_dupla, participante_2 as participante, posicao, edicao
+    from ranking
+    where participante_2 is not null
+    ),
+
+    fixed_ranking as (
+        
+        select
+        participante_ou_dupla,
+        case 
+            when participante = 'Jaquelline Grohalski' then 'Jaqueline Grohalski'
+            else participante
+        end as participante,
+        posicao,
+        edicao
+        from ranking_pivot
+    )
+
+select
+{{ dbt_utils.generate_surrogate_key(['edicao','participante']) }} AS id_participante,
+*
+from fixed_ranking

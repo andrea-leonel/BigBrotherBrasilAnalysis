@@ -5,8 +5,12 @@ with
     date_mod as (
 
         select
-            nome as nome_completo,
-            initcap(primeiro_nome) as primeiro_nome,
+            case 
+                when strpos(nome, '(') > 0
+                then regexp_extract(nome, '^(.*?)\\(')
+                else nome 
+            end as nome_completo,
+            alias,
             genero,
             case
                 when strpos(data_nascimento, ' - ') > 0
@@ -26,9 +30,9 @@ with
     )
 
 select 
-{{ dbt_utils.generate_surrogate_key(['edicao','primeiro_nome']) }} AS id_participante,
+{{ dbt_utils.generate_surrogate_key(['edicao','alias']) }} AS id_participante,
 nome_completo,
-primeiro_nome,
+alias,
 genero,
 {{ parse_date('data_nasc')}} AS data_nascimento,
 safe_subtract(ano_edicao,CAST(RIGHT(data_nasc,4) AS INT)) AS idade_participacao,
