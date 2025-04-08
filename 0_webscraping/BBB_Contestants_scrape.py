@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[96]:
+# In[27]:
 
 
 # Libraries
@@ -16,7 +16,7 @@ import gzip
 from unidecode import unidecode
 
 
-# In[98]:
+# In[29]:
 
 
 # URL of the Wikipedia page containing 25 tables with the contestants' information
@@ -29,9 +29,9 @@ soup = BeautifulSoup(response.content, 'html.parser')
 def remove_accents(text):
     return unidecode(text) if isinstance(text, str) else text
 
-    # Iterate through all text elements in the HTML and replace accents
+# Iterate through all text elements in the HTML and replace accents
 for element in soup.find_all(string=True):
-    element.replace_with(remove_accents(element))  # Replace text with de
+    element.replace_with(remove_accents(element))
 
 tables = soup.find_all("table", {"class": "wikitable"})
 
@@ -40,6 +40,30 @@ dataframes = []
 
 for i, table in enumerate(tables):  # Skip the first two tables
     df = pd.read_html(StringIO(str(table)))[0]  # Convert HTML table to DataFrame
+
+    # There are aliases in bold in the Participante/Nome Completo column which are necessary to do the join with other tables
+    aliases = []
+    participante_column = None
+
+    headers = [header.text.strip() for header in table.find_all("th")]
+
+    for idx, header in enumerate(headers): # Find the index for "Participante" or "Nome completo"
+        if "Participante" in header or "Nome completo" in header:
+            participante_column = idx
+            break
+            
+    if participante_column is not None: # Ensure the index is found before proceeding
+        rows = table.find_all("tr")
+        for row in rows:
+            cells = row.find_all("td")
+            if len(cells) > participante_column: 
+                bold_tag = cells[participante_column].find("b")  # Extract <b> tag content
+                aliases.append(bold_tag.text.strip() if bold_tag else "")
+            else:
+                aliases.append("")
+
+    aliases = aliases[1:]
+    df['alias'] = aliases
     df['Edicao'] = f'{i+1}'  # Add a TableID column, start from Table_3
     dataframes.append(df)
 
@@ -60,14 +84,14 @@ contestants = contestants.drop(columns=['Ref.', 'Participantes'])
 contestants = contestants[contestants["Origem"].str.contains("Origem") == False]
 
 
-# In[99]:
+# In[30]:
 
 
 #There were nas under the Results column for the ongoing season. Replaced these with "Ongoing". 
 contestants['Resultado'] = contestants['Resultado'].fillna(value="Em andamento em Em andamento")
 
 
-# In[100]:
+# In[31]:
 
 
 # Some contestants are foreigners so we need an extra column to identify if they are Brazilian.
@@ -77,7 +101,7 @@ brazil_states = ['Acre','Alagoas','Amapá','Amazonas','Bahia','Ceará','Espírit
 contestants['Nacionalidade'] = contestants['Origem'].apply(lambda x: 'Brasileiro' if any(sub in x for sub in brazil_states) else 'Estrangeiro')
 
 
-# In[101]:
+# In[32]:
 
 
 # Split the Origem column into City & State for Brazilians. For foreigners, it should say "Foreigner".
@@ -93,7 +117,7 @@ contestants.loc[condition,['Estado']] = 'Estrangeiro'
 contestants = contestants.drop(columns=['Origem'])
 
 
-# In[102]:
+# In[33]:
 
 
 #Splitting the Resultado column to show the Result and Date separately
@@ -101,7 +125,7 @@ contestants = contestants.drop(columns=['Origem'])
 contestants[['Resultado','Data_Resultado']] = contestants['Resultado'].str.split(' em ', expand=True)
 
 
-# In[105]:
+# In[34]:
 
 
 # Adding Gender using data from the Brazilian Census. When the names are not included in the census, it uses the gendered words in Resultado to determine Gender.
@@ -155,7 +179,7 @@ contestants['Genero'] = contestants.apply(
 )
 
 
-# In[107]:
+# In[35]:
 
 
 #Normalising gendered words in Resultado
@@ -167,7 +191,7 @@ contestants['Resultado'] = contestants['Resultado'].replace('Retirada','Retirado
 
 
 
-# In[109]:
+# In[36]:
 
 
 # Adding the year of each contestant show
@@ -176,7 +200,7 @@ contestants['Ano_Edicao'] = contestants['Data_Resultado'].str.slice(-4)
 contestants.loc[contestants['Data_Resultado'] == 'Em andamento', "Ano_Edicao"] = "2025"
 
 
-# In[111]:
+# In[37]:
 
 
 # Create unique ids for the contestants
@@ -187,7 +211,7 @@ name_to_id = {name: id for id, name in enumerate(unique_contestants, start=1)}
 contestants['ID_Participante'] = contestants['Nome'].map(name_to_id)
 
 
-# In[113]:
+# In[38]:
 
 
 #Normalising gendered words in Profissao
@@ -253,7 +277,7 @@ contestants['Profissao'] = contestants['Profissao'].str.replace('Surfista', 'Atl
 contestants['Profissao'] = contestants['Profissao'].str.replace('eterinária', 'eterinário', regex=True)
 
 
-# In[115]:
+# In[44]:
 
 
 # Save the dataframe to CSV to my local drive
