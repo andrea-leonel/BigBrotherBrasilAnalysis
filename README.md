@@ -33,7 +33,7 @@ The data is comprised of 3 tables:
 2) Besides, information on the challenges could be added, something that [BBBStats](https://drive.google.com/drive/u/0/folders/1O9LwFF4oR-n3SNd1vY_v-7n8QhDeprRv) started doing and that could be put in table form and joined with the rest of this database.
 3) There are other tables with consistent information across the seasons on their Wikipedia pages that could be further explored too.
 4) The ratings methodology may have changed throughout the years so it would be interesting to reflect that in the Ratings tables.
-5) The nominations table can be improved in accuracy. Immunities given outside the Power of Immunity is not reflected in the dataset. This information would need to be gathered from the notes on Wikipedia.
+5) The nominations table can be improved in accuracy. Immunities given outside the Power of Immunity is not reflected in the dataset. Also, some nominations are not captured correctly, for example when the second most-voted is also nominated, that should be a separate column. This information would need to be gathered from the notes on Wikipedia.
 
 # Reproducibility
 
