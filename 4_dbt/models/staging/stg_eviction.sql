@@ -104,20 +104,7 @@ with
             CONCAT(paredao_1,paredao_2,paredao_3,paredao_4) as paredao_cons,
             votos
         from consolidate_columns
-    ),
-
-    consolidate_columns_3 as (
-        select 
-        id_paredao,
-        edicao,
-        semana,
-        dinamica,
-        {{ deduplicate_strings(paredao_cons) }} as paredao_cons_clean,
-        {{ deduplicate_strings(eliminado_cons) }} as eliminado_cons_clean,
-        {{ deduplicate_strings(outras_porcent_cons) }} as outras_porcent_cons_clean,
-        votos
-        from consolidate_columns_2
     )
 
 select *
-from consolidate_columns_3
+from consolidate_columns_2
