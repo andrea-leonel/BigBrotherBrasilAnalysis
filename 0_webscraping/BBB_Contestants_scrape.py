@@ -25,6 +25,14 @@ url = "https://pt.wikipedia.org/wiki/Lista_de_participantes_do_Big_Brother_Brasi
 # Requesting the URL and locating the relevant tables
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
+
+def remove_accents(text):
+    return unidecode(text) if isinstance(text, str) else text
+
+    # Iterate through all text elements in the HTML and replace accents
+for element in soup.find_all(string=True):
+    element.replace_with(remove_accents(element))  # Replace text with de
+
 tables = soup.find_all("table", {"class": "wikitable"})
 
 #Storing the tables into a dataframe with a table identifier 'Edicao' (Season).
