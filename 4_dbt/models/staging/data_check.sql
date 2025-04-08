@@ -1,0 +1,1 @@
+select distinct primeiro_nome from {{ ref("stg_ranking") }}

@@ -26,7 +26,7 @@ with
     )
 
 select 
-{{ dbt_utils.generate_surrogate_key(['edicao', 'data_nasc','primeiro_nome']) }} AS id_participante,
+{{ dbt_utils.generate_surrogate_key(['edicao','primeiro_nome']) }} AS id_participante,
 nome_completo,
 primeiro_nome,
 genero,
