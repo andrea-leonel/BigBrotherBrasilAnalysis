@@ -9,6 +9,7 @@ import csv
 import gzip
 from unidecode import unidecode
 import html5lib
+import itertools
 
 def nominations_scrape(url):
 
