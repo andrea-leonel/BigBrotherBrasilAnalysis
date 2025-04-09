@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[25]:
-
-
 # Libraries
 
 import pandas as pd
@@ -15,7 +9,6 @@ import csv
 import gzip
 from unidecode import unidecode
 import html5lib
-import itertools
 
 def nominations_scrape(url):
 
@@ -124,6 +117,7 @@ def nominations_scrape(url):
     Nominations.columns = [col.replace('(', '') for col in Nominations.columns]
     Nominations.columns = [col.replace(')', '') for col in Nominations.columns]
 
+
     # Manipulating the Individual_nominations table
 
     # Remove Na columns
@@ -185,7 +179,12 @@ def nominations_scrape(url):
     Eviction_results.columns = [col.replace(' ', '_') for col in Eviction_results.columns]
     Eviction_results.columns = [col.replace('(', '') for col in Eviction_results.columns]
     Eviction_results.columns = [col.replace(')', '') for col in Eviction_results.columns]
-    Eviction_results.columns = [col.replace('%', 'Porcent') for col in Eviction_results.columns]
+    Eviction_results.columns = [col.replace('%', 'Porcent') for col in Eviction_results.columns]  
+
+    # Normalising column names
+    for col in Eviction_results.columns:
+        if col.startswith(('Outras_Porcent', 'Outras_Porcent_ou_Pontos', 'Outras_Porcent_ou_Votos','Outras_Porcent_ou_Votos')):
+            Eviction_results.rename(columns={col: 'porcent_outros_'}, inplace=True)
 
     # Make duplicate column names unique
     excluded = Eviction_results.columns[~Eviction_results.columns.duplicated(keep=False)]
@@ -200,6 +199,19 @@ def nominations_scrape(url):
 
     Eviction_results.columns = [ren(name) for name in Eviction_results.columns]
 
+    # Handling duplicated values in Eliminado
+    prefixes = ('Eliminado','porcent_outros_','Expulso','Paredao')
+
+    for prefix in prefixes:
+        columns_to_check = [col for col in Eviction_results.columns if col.startswith(prefix)]
+        if columns_to_check:
+            for index, row in Eviction_results.iterrows():
+                unique_values = list(dict.fromkeys(row[columns_to_check]))
+                for i, col in enumerate(columns_to_check):
+                    Eviction_results.loc[index, col] = unique_values[i] if i < len(unique_values) else None
+
+    Eviction_results = Eviction_results.dropna(axis=1, how='all')
+
      # Save to csv
     year = url.rsplit('_', 1)[-1]
 
@@ -211,7 +223,7 @@ def nominations_scrape(url):
     
 # List of URLs to process
 base_url = "https://pt.wikipedia.org/wiki/Big_Brother_Brasil_"
-number_of_shows = 25
+number_of_shows = 2
 
 urls = [f"{base_url}{i}" for i in range(1, number_of_shows + 1)]
 
@@ -221,11 +233,4 @@ for url in urls:
         print(f"Processed and saved CSV files for: {url}")
     except Exception as e:
         print(f"Error processing {url}: {e}")
-
-
-
-# In[ ]:
-
-
-
 
