@@ -184,7 +184,19 @@ def nominations_scrape(url):
     Eviction_results.columns = [col.replace(' ', '_') for col in Eviction_results.columns]
     Eviction_results.columns = [col.replace('(', '') for col in Eviction_results.columns]
     Eviction_results.columns = [col.replace(')', '') for col in Eviction_results.columns]
-    Eviction_results.columns = [col.replace('%', 'Porcent') for col in Eviction_results.columns]    
+    Eviction_results.columns = [col.replace('%', 'Porcent') for col in Eviction_results.columns]
+
+    # Make duplicate column names unique
+    counters = {}
+
+    def ren(name):
+        if name in excluded:
+            return name
+        if name not in counters:
+            counters[name] = itertools.count()  # Create a new counter
+        return f"{name}{next(counters[name])}"
+
+    Eviction_results.columns = [ren(name) for name in Eviction_results.columns]
 
      # Save to csv
     year = url.rsplit('_', 1)[-1]
