@@ -188,6 +188,7 @@ def nominations_scrape(url):
     Eviction_results.columns = [col.replace('%', 'Porcent') for col in Eviction_results.columns]
 
     # Make duplicate column names unique
+    excluded = Eviction_results.columns[~Eviction_results.columns.duplicated(keep=False)]
     counters = {}
 
     def ren(name):
