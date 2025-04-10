@@ -57,8 +57,9 @@ for i, table in enumerate(tables):  # Skip the first two tables
         for row in rows:
             cells = row.find_all("td")
             if len(cells) > participante_column: 
-                bold_tag = cells[participante_column].find("b")  # Extract <b> tag content
-                aliases.append(bold_tag.text.strip() if bold_tag else "")
+                bold_tags = cells[participante_column].find_all("b")
+                aliases.append(" ".join(bold_tag.text.strip() for bold_tag in bold_tags) if bold_tags else "")
+        
             else:
                 aliases.append("")
 
