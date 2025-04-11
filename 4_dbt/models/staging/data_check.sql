@@ -14,18 +14,25 @@ where STRPOS(participante, 'Grohalski') > 0
 select Edicao, Semana, Dinamica, Eliminado, Eliminado_5, Eliminado_6 from {{ ref("stg_eviction") }}
 where Eliminado_6 is not null
 
-select distinct Dinamica from {{ ref("stg_eviction_union") }}
+select distinct Dinamica from {{ ref("stg_nominations") }}
 order by Dinamica ASC
 where Eliminado_6 is not null
 
-select * from {{ ref("stg_eviction") }}
+with
+    unpivot as (
 
-    column_select as (
-        select
-            {{ dbt_utils.generate_surrogate_key(["edicao", "semana", "dinamica"]) }}
-            as id_paredao,
-            edicao,
-            replace(semana, 'Sem ', 'Semana ') as semana,
-            dinamica,
-            eliminado_cons
-        from column_fix
+        {{
+            dbt_utils.unpivot(
+                relation=ref("stg_eviction"),
+                exclude=["edicao", "semana", "dinamica"],
+                cast_to="string",
+                field_name="Categoria",
+                value_name="Valor",
+            )
+        }}
+    ),
+
+select distinct evento from {{ref('dm_nominations')}}
+order by event ASC
+where tipo_paredao is null
+--where semana = 'Semana 10' and edicao = 24

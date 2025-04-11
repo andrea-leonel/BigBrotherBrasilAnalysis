@@ -1,3 +1,5 @@
+{{ config(materialized='ephemeral') }}
+
 with
 
     source as (select * from {{ source("big-brother-brasil-454420", "Contestants") }}),
