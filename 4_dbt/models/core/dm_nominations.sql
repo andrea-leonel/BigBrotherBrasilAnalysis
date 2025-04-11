@@ -27,6 +27,8 @@ with unpivot_alias as (
         select
             id_paredao,
             id_participante,
+            edicao,
+            semana,
             evento,
             tipo_evento,
             participante_individual as participante,

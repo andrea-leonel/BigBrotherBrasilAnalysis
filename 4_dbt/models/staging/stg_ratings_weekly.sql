@@ -16,6 +16,7 @@ with
                     source("big-brother-brasil-454420", "ratingsweekly22"),
                     source("big-brother-brasil-454420", "ratingsweekly23"),
                     source("big-brother-brasil-454420", "ratingsweekly24"),
+                    source("big-brother-brasil-454420", "ratingsweekly25")
                 ],
                 source_column_name=None,
                 column_override={"TER": "FLOAT64"},
