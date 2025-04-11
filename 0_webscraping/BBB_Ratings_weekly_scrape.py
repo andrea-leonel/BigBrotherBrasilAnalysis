@@ -75,13 +75,13 @@ def ratings_weekly_scrape(url):
         Ratings_weekly['Semana'] = ['Semana {}'.format(i + 1) for i in range(len(Ratings_weekly))]
 
         # Replace any -- with null
-        Ratings_weekly.loc[:, 'SEG'] = Ratings_weekly.apply(lambda row: row['SEG'].replace('--', 'NaN') if '--' in row['SEG'] else row['SEG'], axis=1)
-        Ratings_weekly.loc[:, 'TER'] = Ratings_weekly.apply(lambda row: row['TER'].replace('--', 'NaN') if '--' in row['TER'] else row['TER'], axis=1)
-        Ratings_weekly.loc[:, 'QUA'] = Ratings_weekly.apply(lambda row: row['QUA'].replace('--', 'NaN') if '--' in row['QUA'] else row['QUA'], axis=1)
-        Ratings_weekly.loc[:, 'QUI'] = Ratings_weekly.apply(lambda row: row['QUI'].replace('--', 'NaN') if '--' in row['QUI'] else row['QUI'], axis=1)
-        Ratings_weekly.loc[:, 'SEX'] = Ratings_weekly.apply(lambda row: row['SEX'].replace('--', 'NaN') if '--' in row['SEX'] else row['SEX'], axis=1)
-        Ratings_weekly.loc[:, 'SAB'] = Ratings_weekly.apply(lambda row: row['SAB'].replace('--', 'NaN') if '--' in row['SAB'] else row['SAB'], axis=1)
-        Ratings_weekly.loc[:, 'DOM'] = Ratings_weekly.apply(lambda row: row['DOM'].replace('--', 'NaN') if '--' in row['DOM'] else row['DOM'], axis=1)    
+        Ratings_weekly.loc[:, 'SEG'] = Ratings_weekly.apply(lambda row: row['SEG'].replace('--', 'NaN') if isinstance(row['SEG'], str) and '--' in row['SEG'] else row['SEG'],axis=1)
+        Ratings_weekly.loc[:, 'TER'] = Ratings_weekly.apply(lambda row: row['TER'].replace('--', 'NaN') if isinstance(row['TER'], str) and '--' in row['TER'] else row['TER'],axis=1)
+        Ratings_weekly.loc[:, 'QUA'] = Ratings_weekly.apply(lambda row: row['QUA'].replace('--', 'NaN') if isinstance(row['QUA'], str) and '--' in row['QUA'] else row['QUA'],axis=1)
+        Ratings_weekly.loc[:, 'QUI'] = Ratings_weekly.apply(lambda row: row['QUI'].replace('--', 'NaN') if isinstance(row['QUI'], str) and '--' in row['QUI'] else row['QUI'],axis=1)
+        Ratings_weekly.loc[:, 'SEX'] = Ratings_weekly.apply(lambda row: row['SEX'].replace('--', 'NaN') if isinstance(row['SEX'], str) and '--' in row['SEX'] else row['SEX'],axis=1)
+        Ratings_weekly.loc[:, 'SAB'] = Ratings_weekly.apply(lambda row: row['SAB'].replace('--', 'NaN') if isinstance(row['SAB'], str) and '--' in row['SAB'] else row['SAB'],axis=1)
+        Ratings_weekly.loc[:, 'DOM'] = Ratings_weekly.apply(lambda row: row['DOM'].replace('--', 'NaN') if isinstance(row['DOM'], str) and '--' in row['DOM'] else row['DOM'],axis=1)    
 
     else: print("Ratings table not available")
     
