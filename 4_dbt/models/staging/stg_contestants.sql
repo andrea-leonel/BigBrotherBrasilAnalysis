@@ -45,5 +45,6 @@ cidade,
 profissao,
 ano_edicao,
 edicao,
-{{ parse_date('data_resultado')}} AS ultimo_dia,
+MAX({{ parse_date('data_resultado')}}) AS ultimo_dia,
 from date_mod
+group by id_participante,nome_completo, alias, genero, data_nascimento,idade_participacao,data_falecimento,nacionalidade,estado,cidade,profissao,ano_edicao,edicao
