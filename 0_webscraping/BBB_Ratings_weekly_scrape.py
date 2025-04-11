@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[103]:
-
-
 # Libraries
 
 import pandas as pd
@@ -40,13 +34,21 @@ def ratings_weekly_scrape(url):
         next_div = parent_div.find_next_sibling()
 
         while next_div:
-            if next_div.name == "table":
-                desired_table = next_div
-                break
-            else:
-                next_div = next_div.find_next_sibling()
+         if next_div.name == "table":
+            desired_table = next_div
+            break
+         else:
+            next_div = next_div.find_next_sibling()
+            if next_div.find('h2'):
+                break 
 
     if desired_table:
+
+        # Replacing commas for periods in decimals
+        for element in desired_table.find_all(string=True):
+            if ',' in element:
+                updated_text = element.replace(',', '.')
+                element.replace_with(updated_text)
 
         # Parsing html table to DataFrame
         html_to_table = pd.read_html(StringIO(str(desired_table)))
@@ -69,6 +71,15 @@ def ratings_weekly_scrape(url):
         Ratings_weekly.loc[:, 'SEX'] = Ratings_weekly['SEX'].str.replace(r'\[.*', '', regex=True)
         Ratings_weekly.loc[:, 'SAB'] = Ratings_weekly['SAB'].str.replace(r'\[.*', '', regex=True)
         Ratings_weekly.loc[:, 'DOM'] = Ratings_weekly['DOM'].str.replace(r'\[.*', '', regex=True)
+
+        # Using commas as decimals, changing it to points
+        Ratings_weekly.loc[:, 'SEG'] = Ratings_weekly['SEG'].str.replace(',', '.', regex=True)
+        Ratings_weekly.loc[:, 'TER'] = Ratings_weekly['TER'].str.replace(',', '.', regex=True)
+        Ratings_weekly.loc[:, 'QUA'] = Ratings_weekly['QUA'].str.replace(',', '.', regex=True)
+        Ratings_weekly.loc[:, 'QUI'] = Ratings_weekly['QUI'].str.replace(',', '.', regex=True)
+        Ratings_weekly.loc[:, 'SEX'] = Ratings_weekly['SEX'].str.replace(',', '.', regex=True)
+        Ratings_weekly.loc[:, 'SAB'] = Ratings_weekly['SAB'].str.replace(',', '.', regex=True)
+        Ratings_weekly.loc[:, 'DOM'] = Ratings_weekly['DOM'].str.replace(',', '.', regex=True)
     
         # Add week number
         Ratings_weekly = Ratings_weekly.copy()
@@ -105,10 +116,3 @@ for url in urls:
     except Exception as e:
         print(f"Error processing {url}: {e}")
     
-
-
-# In[ ]:
-
-
-
-
