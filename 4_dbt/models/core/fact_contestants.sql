@@ -28,4 +28,3 @@ with
             )
 
             select * from contestant_table
-            order by n_provas_lider_anjo desc
