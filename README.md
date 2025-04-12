@@ -19,21 +19,31 @@ Each year, the show generates a large volume of information on contestants, nomi
 3) Nomalisation & Manipulation using dbt: individual shows tables are consolidated into a normalised dataset using dbt along with the creation of a facts table for analysis.
 4) Visualisation: Visuals displayig key insights on the show are created using Power BI.
 
-# The Data
+# The Dataset
 
-The data is comprised of 3 tables:
-1) Contestants: demographic information of each contestant as well as their position in the show and other show-related information (eg method of entry).
-2) Nominations: for each eviction round, information on the nomination of the head-of-house, the nomination of the house, and other types of nominations.
-3) Eviction Results: for each eviction round, information on the % of public votes for each contestant and who was evicted.
-4) Shows: information on the format of each show, the host, number of episodes and, for some years, ratings.
+*Please note the dataset is partially in Brazilian Portuguese as it is intended for users in Brazil. Table names and code were kept in English for this project*
+For clarity:
+Edicao = Season  
+Participante = Contestant  
+Semana = Week  
+Paredao = Nomination
+
+
+The dataset is comprised of 6 tables:
+1) dm_contestants: demographic and show performance informationn per contestant. Keys: id_participante and edicao.
+2) dm_nominations: information on the nomination rounds such as who was the head-of-house, who had power of immunity, who was evicted, etc. This table has a long format (unpivotted) with an event attribute and id_participante as values. Keys: edicao+semana, edicao and id_participante.
+3) dm_noms_desc: links season, week and nomination_rounds, necessary for weekly analysis across all the tables. Keys: edicao, edicao+semana
+4) dm_ratings: each season's ratings in weekly average and by day (available only for seasons 10-12 and 15 onwards). Keys: edicao+semana
+5) fact_edicao: key stats per season. Keys: edicao.
+6) fact_contestant: key stats per contestant. Keys: id_participante.
 
 # Future Improvements
 
-1) This dataset lacks information on a very important dimension of this show's popularity: social media. It would be interesting to see follower growth of the contestants throughout the show and how they maintained that growth post-show. It would also be interesting to gather mention information, particularly on X where the show is heavily commented by its fans.
-2) Besides, information on the challenges could be added, something that [BBBStats](https://drive.google.com/drive/u/0/folders/1O9LwFF4oR-n3SNd1vY_v-7n8QhDeprRv) started doing and that could be put in table form and joined with the rest of this database.
-3) There are other tables with consistent information across the seasons on their Wikipedia pages that could be further explored too.
-4) The ratings methodology may have changed throughout the years so it would be interesting to reflect that in the Ratings tables.
-5) The nominations table can be improved in accuracy. Immunities given outside the Power of Immunity is not reflected in the dataset. Also, some nominations are not captured correctly, for example when the second most-voted is also nominated, that should be a separate column. This information would need to be gathered from the notes on Wikipedia.
+1) There are certain inconsistencies in the dm_nominations table that are a result of the unstructured nature of the Wikipedia tables. This information would need to be gathered from the notes on Wikipedia and manually adjusted in the dataset. For example, immunities given outside the Power of Immunity are not reflected in the dataset. Also, some nominations are not captured correctly; for example, when the second most-voted is also nominated, that should be a separate event.
+2) There is a mistake on dm_contestants with some Brazilian states being considered foreign. The webscraping script needs to be checked and fixed.
+3) This dataset lacks information on a very important dimension of this show's popularity: social media. It would be interesting to see the follower growth of the contestants throughout the show and how they maintained that growth post-show. It would also be interesting to gather mention information, particularly on X, where the show is heavily commented on by its fans.
+4) Besides, information on the challenges could be added, something that [BBBStats](https://drive.google.com/drive/u/0/folders/1O9LwFF4oR-n3SNd1vY_v-7n8QhDeprRv) started doing and that could be put in table form and joined with the rest of this database.
+5) There are other tables with consistent information across the seasons on their Wikipedia pages that could be further explored too.
 
 # Reproducibility
 
@@ -52,6 +62,8 @@ Kestra runs on a Docker image and Docker runs more smoothly on Linux. So, if you
 ### [4) Create the flows on Kestra](2_kestra/)
 
 ### [5) Running the models on dbt](4_dbt/)
+
+### [6) Overview Dashboard on PowerBI](5_powerbi/)
 
 
 
