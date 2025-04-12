@@ -2,6 +2,8 @@
 
 ![Dashboard](dashboard.png)
 
+(Please note some of the data is in Brazilian Portuguese as this database is inteded mainly for users in Brazil) 
+
 As an initial development for this project, a dashboard was developed to allow the user to flick through the seasons and get an overview of key events like dropouts and disqualifications. 
 
 Show ratings (where available) can also be seen overall and by week alongside the eviction of the week to see potential impacts from the loss of a contestant that had some importance to the show's narrative or a big following on social media.
