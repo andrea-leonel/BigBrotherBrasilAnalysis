@@ -24,12 +24,12 @@ Each year, the show generates a large volume of information on contestants, nomi
 1) Webscraping using Python: raw data is collected from Wikipedia pages and turned into csv tables.
 2) Ingestion & Storage using Kestra, GCP, BigQuery: these csv tables are stored into BigQuery datasets on GCP using dynamic Kestra flows.
 3) Nomalisation & Manipulation using dbt: individual shows tables are consolidated into a normalised dataset using dbt along with the creation of a facts table for analysis.
-4) Visualisation: Visuals displayig key insights on the show are created using Power BI.
+4) Visualisation: Visuals displaying key insights on the show are created using Power BI.
 
 # The Dataset
 
 *Please note the dataset is partially in Brazilian Portuguese as it is intended for users in Brazil. Table names and code were kept in English for this project*
-For clarity:
+For clarity:  
 Edicao = Season  
 Participante = Contestant  
 Semana = Week  
