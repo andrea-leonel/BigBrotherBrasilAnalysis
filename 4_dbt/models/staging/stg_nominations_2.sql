@@ -95,3 +95,9 @@ with
     )
 
     select * from join_alias
+    
+{% if var('is_test_run', default=true) %}
+
+  limit 100
+
+{% endif %}
