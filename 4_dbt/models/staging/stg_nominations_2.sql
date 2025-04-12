@@ -95,7 +95,8 @@ with
     )
 
     select * from join_alias
-    
+
+-- dbt build --select stg_nominations2.sql --vars '{'is_test_run': 'false'}'
 {% if var('is_test_run', default=true) %}
 
   limit 100
