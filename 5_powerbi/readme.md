@@ -1,6 +1,6 @@
 ## Overview Dashboard
 
-![Dashboard](Dashboard.png)
+![Dashboard](dashboard.png)
 
 As an initial development for this project, a dashboard was developed to allow the user to flick through the seasons and get an overview of key events like dropouts and disqualifications. 
 
