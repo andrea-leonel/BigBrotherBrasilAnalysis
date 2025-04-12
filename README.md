@@ -28,7 +28,7 @@ Each year, the show generates a large volume of information on contestants, nomi
 
 # The Dataset
 
-*Please note the dataset is partially in Brazilian Portuguese as it is intended for users in Brazil. Table names and code were kept in English for this project*
+*Please note the dataset is partially in Brazilian Portuguese as it is intended for users in Brazil. Table names and code were kept in English for this project*  
 For clarity:  
 Edicao = Season  
 Participante = Contestant  
