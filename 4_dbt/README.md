@@ -7,12 +7,17 @@
 
 ![lineage](lineage.png)
 
-- The data is scraped from Wikipedia into several tables, namely:
-Contestants: with contestant demographic and show performance information
-Ranking 1 to 25: 1 table per season with each contestant's final position on the show.
-Nominations 1 to 25: 1 table per season with information on the nominations
-Eviction results 1 to 25: 1 table per season with information on the evictions
-Ratings weekly 1 to 25: 1 table per season with show ratings per day and weekly average
+The data is scraped from Wikipedia into several tables, namely:
+Contestants: with contestant demographic and show performance information  
+
+Ranking 1 to 25: 1 table per season with each contestant's final position on the show  
+
+Nominations 1 to 25: 1 table per season with information on the nominations  
+
+Eviction results 1 to 25: 1 table per season with information on the evictions  
+
+Ratings weekly 1 to 25: 1 table per season with show ratings per day and weekly average  
+
 
 These tables were pre-cleaned in python before being ingested but further manipulation was needed. Besides, tables needed to be unioned when there was 1 table per season.
 These steps were done in stg_contestants, stg_ranking, stg_eviction, stg_nominations (2 models were necessary due to unpivotting), and stg_ratings_weekly.
