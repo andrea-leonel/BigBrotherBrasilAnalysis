@@ -36,12 +36,12 @@ Semana = Week
 Paredao = Nomination
 
 
-The dataset is comprised of 6 tables:
-**1) dm_contestants**: demographic and show performance informationn per contestant. Keys: id_participante and edicao.
-**2) dm_nominations**: information on the nomination rounds such as who was the head-of-house, who had power of immunity, who was evicted, etc. This table has a long format (unpivotted) with an event attribute and id_participante as values. Keys: edicao+semana, edicao and id_participante.
-**3) dm_noms_desc**: links season, week and nomination_rounds, necessary for weekly analysis across all the tables. Keys: edicao, edicao+semana
-**4) dm_ratings**: each season's ratings in weekly average and by day (available only for seasons 10-12 and 15 onwards). Keys: edicao+semana
-**5) fact_edicao**: key stats per season. Keys: edicao.
+The dataset is comprised of 6 tables:  
+**1) dm_contestants**: demographic and show performance informationn per contestant. Keys: id_participante and edicao.  
+**2) dm_nominations**: information on the nomination rounds such as who was the head-of-house, who had power of immunity, who was evicted, etc. This table has a long format (unpivotted) with an event attribute and id_participante as values. Keys: edicao+semana, edicao and id_participante.  
+**3) dm_noms_desc**: links season, week and nomination_rounds, necessary for weekly analysis across all the tables. Keys: edicao, edicao+semana  
+**4) dm_ratings**: each season's ratings in weekly average and by day (available only for seasons 10-12 and 15 onwards). Keys: edicao+semana  
+**5) fact_edicao**: key stats per season. Keys: edicao.  
 **6) fact_contestant**: key stats per contestant. Keys: id_participante.
 
 # Future Improvements
