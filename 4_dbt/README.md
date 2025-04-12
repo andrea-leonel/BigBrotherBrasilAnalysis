@@ -5,4 +5,4 @@
 
 ## Outline
 
-![lineage](4_dbt/lineage.png)
+![lineage](lineage.png)
