@@ -4,7 +4,7 @@ This project scrapes data from Wikipedia about Brazil's most watched show, Big B
 
 ## Table of Contents
 - [Problem Description](#problem-description)
-- [Workflow & Technologies](#Workflow-Technologies)
+- [Workflow & Technologies](#workflow--technologies)
 - [The Dataset](#the-dataset)
 - [Future Improvements](#future-improvements)
 - [Reproducibility](#reproducibility)
