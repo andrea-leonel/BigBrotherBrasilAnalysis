@@ -7,7 +7,8 @@
 
 ![lineage](lineage.png)
 
-The data is scraped from Wikipedia into several tables, namely:
+The data is scraped from Wikipedia into several tables, namely:  
+
 **Contestants**: with contestant demographic and show performance information  
 
 **Ranking 1 to 25**: 1 table per season with each contestant's final position on the show  
