@@ -2,7 +2,7 @@
 
 ![Dashboard](dashboard.png)
 
-(Please note some of the data is in Brazilian Portuguese as this database is inteded mainly for users in Brazil) 
+*(Please note some of the data is in Brazilian Portuguese as this database is inteded mainly for users in Brazil)*  
 
 As an initial development for this project, a dashboard was developed to allow the user to flick through the seasons and get an overview of key events like dropouts and disqualifications. 
 
