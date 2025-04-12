@@ -2,6 +2,13 @@
 
 This project scrapes data from Wikipedia about Brazil's most watched show, Big Brother Brasil. This data is then ingested into a GCP bucket and turn into BigQuery datasets. Normalisation and facts table creation happens in dbt before insights are gathered and visualised using Power BI.
 
+## Table of Contents
+- [Problem Description](#problem-description)
+- [Workflow & Technologies](#Workflow-Technologies)
+- [The Dataset](#the-dataset)
+- [Future Improvements](#future-improvements)
+- [Reproducibility](#reproducibility)
+
 # Problem Description
 
 <img src="https://variety.com/wp-content/uploads/2021/03/big-brother-brasil.jpg?w=1000&h=563&crop=1" width="500" height="300"/>
